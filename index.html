@@ -1,198 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App do Juliano - Aprender Brincando</title>
-  <style>
-    :root {
-      --primary: #FF5722;
-      --secondary: #4CAF50;
-      --accent: #FFC107;
-      --bg: #F0F8FF;
-      --text: #333;
-      --card-bg: #FFFFFF;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 15px;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: 2rem;
-      color: var(--primary);
-      text-shadow: 2px 2px var(--accent);
-      margin-bottom: 5px;
-    }
-
-    .truck-container {
-      font-size: 2.5rem;
-      animation: truckMove 3s infinite alternate ease-in-out;
-    }
-
-    @keyframes truckMove {
-      0% { transform: translateX(-15px); }
-      100% { transform: translateX(15px); }
-    }
-
-    nav {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    button.tab-btn {
-      background-color: var(--card-bg);
-      border: 3px solid var(--primary);
-      border-radius: 20px;
-      padding: 10px 18px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: all 0.2s;
-    }
-
-    button.tab-btn.active {
-      background-color: var(--primary);
-      color: white;
-      transform: scale(1.05);
-    }
-
-    .content-section {
-      display: none;
-      width: 100%;
-      max-width: 500px;
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 25px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-
-    .content-section.active {
-      display: block;
-    }
-
-    /* Alfabeto */
-    .letters-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .letter-btn {
-      background-color: #E3F2FD;
-      border: 2px solid #2196F3;
-      border-radius: 12px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      padding: 10px;
-      cursor: pointer;
-    }
-
-    .letter-btn:active {
-      transform: scale(0.95);
-      background-color: #BBDEFB;
-    }
-
-    /* Contagem */
-    .count-display {
-      font-size: 3.5rem;
-      font-weight: bold;
-      color: var(--primary);
-      margin: 10px 0;
-    }
-
-    .hands-area {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 6px;
-      font-size: 1.6rem;
-      min-height: 80px;
-      background: #FFF8E1;
-      border-radius: 15px;
-      padding: 10px;
-      margin-bottom: 15px;
-    }
-
-    .controls-row {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-    }
-
-    .action-btn {
-      background: var(--secondary);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 55px;
-      height: 55px;
-      font-size: 2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    }
-
-    .action-btn:active {
-      transform: scale(0.9);
-    }
-
-    /* Tabuada */
-    .tabuada-select {
-      font-size: 1.1rem;
-      padding: 8px 12px;
-      border-radius: 10px;
-      border: 2px solid var(--primary);
-      margin-bottom: 15px;
-      outline: none;
-    }
-
-    .tabuada-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 5px;
-    }
-
-    .tabuada-item {
-      background: #E8F5E9;
-      border-left: 5px solid var(--secondary);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Carretinha Educativa do Juliano</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Fredoka', cursive, sans-serif;
+            background-color: #F0F9FF;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn-bounce:active {
+            transform: scale(0.95);
+        }
+        .truck-animation {
+            animation: drive 10s linear infinite;
+        }
+        @keyframes drive {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(100vw); }
+        }
+        .finger {
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col justify-between text-slate-800">
 
-  <header>
-    <div class="truck-container">🚚💨🛞</div>
-    <h1>App do
+    <!-- Cabeçalho e Navegação -->
+    <header class="bg-amber-400 border-b-4 border-amber-500 shadow-lg sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <!-- Título do App -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
+                <span class="text-4xl">🚚</span>
+                <div>
+                    <h1 class="text-2xl font-bold text-amber-950 leading-none">Carretinha do Juliano</h1>
+                    <p class="text-xs text-amber-800 font-semibold">Aprender a Jogar e Brincar!</p>
+                </div>
+            </div>
+
+            <!-- Contador de Estrelas e Áudio -->
+            <div class="flex items-center gap-3">
+                <div class="bg-amber-100 border-2 border-amber-300 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-inner">
+                    <span class="text-2xl">⭐</span>
+                    <span id="star-count" class="text-xl font-bold text-amber-900">0</span>
+                </div>
+                <button onclick="toggleSound()" id="sound-btn" class="bg-amber-100 p-2 rounded-full border-2 border-amber-300 text-xl shadow hover:bg-amber-200 transition">
+                    🔊
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu de Abas -->
+        <nav class="bg-amber-300 border-t border-amber-400">
+            <div class="max-w-5xl mx-auto flex justify-around p-1 text-xs sm:text-base font-bold">
+                <button onclick="switchTab('home')" id="tab-home" class="tab-btn px-3 py-2 rounded-lg bg-amber-500 text-white shadow">
+                    🏠 Início
+                </button>
+                <button onclick="switchTab('abc')" id="tab-abc" class="tab-btn px-3 py-2 rounded-lg text-amber-950 hover:bg-amber-400">
+                    🔤 ABC
+                </button>
+                <button onclick="switchTab('counting')" id="tab-counting" class="tab-btn px-3 py-2 rounded-lg text-amber-950 hover:bg-amber-400">
+                    🖐️ Contar (1 a 50)
+                </button>
+                <button onclick="switchTab('tables')" id="tab-tables" class="tab-btn px-3 py-2 rounded-lg text-amber-950 hover:bg-amber-400">
+                    ✖️ Tabuada
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="max-w-5xl mx-auto w-full p-4 flex-grow">
+
+        <!-- TELA INICIAL (HOME) -->
+        <section id="sec-home" class="space-y-6">
+            <!-- Animação da Carretinha -->
+            <div class="relative overflow-hidden bg-sky-200 rounded-2xl p-6 border-4 border-sky-300 shadow-inner h-44 flex items-end">
+                <div class="truck-animation absolute bottom-2 flex items-center gap-1">
